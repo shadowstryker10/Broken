@@ -6,8 +6,10 @@ import ld.frame.DisplayManager;
 import ld.game.Dungeon;
 import ld.game.Game;
 import ld.graphics.Tile;
+import ld.io.Preferences;
 import ld.main.Main;
 import ld.math.MathUtil;
+import ld.sound.Sound;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -116,6 +118,8 @@ public class PlayerInputHandler
 						float angle = MathUtil.getAngle(player.x + (player.getEntitySize() / 2), player.y + (player.getEntitySize() / 2), Mouse.getX(), Mouse.getY());
 						
 						game.getDungeon().spawnEntity(new ProjectilePlayerBullet(player.getCenter().x, player.getCenter().y, angle));
+						if(!Preferences.mute)
+							Sound.playShootSound();
 					}
 				}
 			}

@@ -25,9 +25,11 @@ import ld.graphics.Tile;
 import ld.graphics.TileColoredPixel;
 import ld.graphics.TileFloor;
 import ld.graphics.TileWall;
+import ld.io.Preferences;
 import ld.main.Main;
 import ld.main.titlescreen.LoseScreen;
 import ld.main.titlescreen.WinScreen;
+import ld.sound.Sound;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
@@ -130,7 +132,11 @@ public class Dungeon
 		else
 		{
 			if(redCollected == coloredPixelsToCollect && greenCollected == coloredPixelsToCollect && blueCollected == coloredPixelsToCollect)
+			{
 				winGame = true;
+				if(!Preferences.mute)
+					Sound.playWinSound();
+			}
 			
 			if(redCollected > 5 || greenCollected > 5 || blueCollected > 5)
 			{

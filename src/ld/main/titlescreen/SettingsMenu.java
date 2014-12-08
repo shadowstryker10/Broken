@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL11.*;
 import ld.game.Game;
 import ld.graphics.Textures;
 import ld.io.Preferences;
+import ld.sound.Sound;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -65,7 +66,14 @@ public class SettingsMenu
 					if(selectorInt == 4)
 						Preferences.preferredResolution = 4;
 					if(selectorInt == 5)
-						Preferences.mute = true;
+					{
+						Preferences.mute = !Preferences.mute;
+						
+						if(Preferences.mute == true)
+							Sound.closeClips();
+						else
+							Sound.playSound(Sound.MAIN_MUSIC);
+					}
 					if(selectorInt == 6)
 						returnRequested = true;
 				}

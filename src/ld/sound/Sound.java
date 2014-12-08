@@ -1,8 +1,6 @@
 package ld.sound;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -15,8 +13,13 @@ import ld.io.Preferences;
 public class Sound
 {
 
-	public static final String MAIN_MUSIC = "sound/main.wav";
-	public static final String GAME_COMPLETE = "sound/complete.wav";
+	public static final String MAIN_MUSIC = "sound/background.wav";
+	public static final String SHOOT = "sound/shoot.wav";
+	public static final String KILL = "sound/kill.wav";
+	public static final String HURT = "sound/hurt.wav";
+	public static final String LOSE = "sound/lose.wav";
+	public static final String PICKUP = "sound/pickup.wav";
+	public static final String WIN = "sound/win.wav";
 
 	static Thread mainThread;
 	static Thread completeThread;
@@ -38,7 +41,7 @@ public class Sound
 		prev_mute = Preferences.mute;
 	}
 
-	public static synchronized void playCompletionSound()
+	public static synchronized void playShootSound()
 	{
 		completeThread = new Thread(new Runnable()
 		{
@@ -48,7 +51,7 @@ public class Sound
 				try
 				{
 					inputStream = AudioSystem.getAudioInputStream(Sound.class.getClassLoader().getResource(
-							GAME_COMPLETE));
+							SHOOT));
 					Clip clip = AudioSystem.getClip();
 					clip.open(inputStream);
 					clip.start();
@@ -56,17 +59,199 @@ public class Sound
 				}
 				catch (UnsupportedAudioFileException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				catch (IOException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				catch (LineUnavailableException e)
 				{
-					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (InterruptedException e)
+				{
+				}
+			}
+		});
+		completeThread.start();
+		completeThread.interrupt();
+	}
+
+	public static synchronized void playWinSound()
+	{
+		completeThread = new Thread(new Runnable()
+		{
+			public void run()
+			{
+				AudioInputStream inputStream;
+				try
+				{
+					inputStream = AudioSystem.getAudioInputStream(Sound.class.getClassLoader().getResource(
+							WIN));
+					Clip clip = AudioSystem.getClip();
+					clip.open(inputStream);
+					clip.start();
+					Thread.sleep(10000);
+				}
+				catch (UnsupportedAudioFileException e)
+				{
+					e.printStackTrace();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+				catch (LineUnavailableException e)
+				{
+					e.printStackTrace();
+				}
+				catch (InterruptedException e)
+				{
+				}
+			}
+		});
+		completeThread.start();
+		completeThread.interrupt();
+	}
+
+	public static synchronized void playPickupSound()
+	{
+		completeThread = new Thread(new Runnable()
+		{
+			public void run()
+			{
+				AudioInputStream inputStream;
+				try
+				{
+					inputStream = AudioSystem.getAudioInputStream(Sound.class.getClassLoader().getResource(
+							PICKUP));
+					Clip clip = AudioSystem.getClip();
+					clip.open(inputStream);
+					clip.start();
+					Thread.sleep(10000);
+				}
+				catch (UnsupportedAudioFileException e)
+				{
+					e.printStackTrace();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+				catch (LineUnavailableException e)
+				{
+					e.printStackTrace();
+				}
+				catch (InterruptedException e)
+				{
+				}
+			}
+		});
+		completeThread.start();
+		completeThread.interrupt();
+	}
+
+	public static synchronized void playKillSound()
+	{
+		completeThread = new Thread(new Runnable()
+		{
+			public void run()
+			{
+				AudioInputStream inputStream;
+				try
+				{
+					inputStream = AudioSystem.getAudioInputStream(Sound.class.getClassLoader().getResource(
+							KILL));
+					Clip clip = AudioSystem.getClip();
+					clip.open(inputStream);
+					clip.start();
+					Thread.sleep(10000);
+				}
+				catch (UnsupportedAudioFileException e)
+				{
+					e.printStackTrace();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+				catch (LineUnavailableException e)
+				{
+					e.printStackTrace();
+				}
+				catch (InterruptedException e)
+				{
+				}
+			}
+		});
+		completeThread.start();
+		completeThread.interrupt();
+	}
+
+	public static synchronized void playHurtSound()
+	{
+		completeThread = new Thread(new Runnable()
+		{
+			public void run()
+			{
+				AudioInputStream inputStream;
+				try
+				{
+					inputStream = AudioSystem.getAudioInputStream(Sound.class.getClassLoader().getResource(
+							HURT));
+					Clip clip = AudioSystem.getClip();
+					clip.open(inputStream);
+					clip.start();
+					Thread.sleep(10000);
+				}
+				catch (UnsupportedAudioFileException e)
+				{
+					e.printStackTrace();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+				catch (LineUnavailableException e)
+				{
+					e.printStackTrace();
+				}
+				catch (InterruptedException e)
+				{
+				}
+			}
+		});
+		completeThread.start();
+		completeThread.interrupt();
+	}
+
+	public static synchronized void playLoseSound()
+	{
+		completeThread = new Thread(new Runnable()
+		{
+			public void run()
+			{
+				AudioInputStream inputStream;
+				try
+				{
+					inputStream = AudioSystem.getAudioInputStream(Sound.class.getClassLoader().getResource(
+							LOSE));
+					Clip clip = AudioSystem.getClip();
+					clip.open(inputStream);
+					clip.start();
+					Thread.sleep(10000);
+				}
+				catch (UnsupportedAudioFileException e)
+				{
+					e.printStackTrace();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+				catch (LineUnavailableException e)
+				{
 					e.printStackTrace();
 				}
 				catch (InterruptedException e)
@@ -97,22 +282,18 @@ public class Sound
 				}
 				catch (UnsupportedAudioFileException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				catch (IOException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				catch (LineUnavailableException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				catch (InterruptedException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

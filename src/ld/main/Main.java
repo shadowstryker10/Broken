@@ -5,6 +5,7 @@ import ld.game.Game;
 import ld.graphics.Textures;
 import ld.io.Preferences;
 import ld.main.titlescreen.MainMenu;
+import ld.sound.Sound;
 
 import org.lwjgl.opengl.Display;
 
@@ -29,6 +30,7 @@ public class Main
 		instance = this;
 		
 		DisplayManager.createDisplay(1024, 640, "Broken");
+		Sound.playSound(Sound.MAIN_MUSIC);
 		gameLoop();
 		
 		dispose();
@@ -63,7 +65,7 @@ public class Main
 			{
 				game.update();
 			}
-			
+		
 			this.update();
 			DisplayManager.updateDisplay();
 		}

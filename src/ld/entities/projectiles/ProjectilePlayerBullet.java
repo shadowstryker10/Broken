@@ -7,7 +7,9 @@ import ld.entities.GameEntity;
 import ld.game.Dungeon;
 import ld.game.Game;
 import ld.graphics.Textures;
+import ld.io.Preferences;
 import ld.main.Main;
+import ld.sound.Sound;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
@@ -60,6 +62,8 @@ public class ProjectilePlayerBullet extends ProjectileEntity
 			{
 				dungeon.killEntity(entities.get(i));
 				dungeon.killEntity(this);
+				if(!Preferences.mute)
+					Sound.playKillSound();
 			}
 		}
 		

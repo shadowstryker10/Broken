@@ -19,7 +19,9 @@ import ld.game.Game;
 import ld.graphics.Textures;
 import ld.graphics.Tile;
 import ld.graphics.TileColoredPixel;
+import ld.io.Preferences;
 import ld.main.Main;
+import ld.sound.Sound;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.opengl.Texture;
@@ -75,12 +77,16 @@ public class Player extends LivingGameEntity
 			if(entity instanceof EntityCommoner && collidesWith(entity))
 			{
 				dungeon.killEntity(entity);
+				if(!Preferences.mute)
+					Sound.playHurtSound();
 				health--;
 			}
 		}
 		if(health == 0)
 		{
 			dungeon.loseGame = true;
+			if(!Preferences.mute)
+				Sound.playLoseSound();
 		}
 		
 		if(previousResolution != Game.currentResolution)
@@ -115,6 +121,8 @@ public class Player extends LivingGameEntity
 			}
 			dungeon.getOnGroundTiles()[(int) gridLocation.x][(int) gridLocation.y] = null;
 			dungeon.coloredPixelsOut--;
+			if(!Preferences.mute)
+				Sound.playPickupSound();
 		}
 		
 		input.update();
