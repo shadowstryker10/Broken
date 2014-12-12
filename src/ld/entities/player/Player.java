@@ -131,8 +131,6 @@ public class Player extends LivingGameEntity
 	
 	public void render()
 	{
-		System.out.println(health);
-		
 		if(health == 5)
 		{
 			glBindTexture(GL_TEXTURE_2D, textures[0].getTextureID());

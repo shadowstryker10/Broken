@@ -12,7 +12,7 @@ import org.lwjgl.opengl.DisplayMode;
 
 public class DisplayManager
 {
-	private static int fps, delta, FPS_CAP;
+	private static int fps, delta, FPS_CAP = 60;
 	private static String TITLE;
 	
 	private static Timer timer;
@@ -74,7 +74,7 @@ public class DisplayManager
 		fps = timer.getFPS();
 		delta = timer.getDelta();
 		
-		Display.setTitle(TITLE + " | FPS: " + fps + " , DELTA: " + delta);
+		Display.setTitle(TITLE + " | FPS: " + fps);
 		
 		Display.sync(FPS_CAP);
 		Display.update();

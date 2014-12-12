@@ -20,6 +20,7 @@ import java.util.Random;
 import ld.entities.EntityCommoner;
 import ld.entities.GameEntity;
 import ld.entities.player.Player;
+import ld.frame.DisplayManager;
 import ld.graphics.Textures;
 import ld.graphics.Tile;
 import ld.graphics.TileColoredPixel;
@@ -53,12 +54,15 @@ public class Dungeon
 	public int blueCollected;
 	
 	public int mobSpawnWait;
+	public int pixelSpawnWait;
 	
 	public boolean loseGame;
 	public boolean winGame;
 
 	public LoseScreen lose_screen;
 	public WinScreen win_screen;
+
+	private Random random = new Random();
 	
 	Texture rgbHUD;
 
@@ -74,8 +78,9 @@ public class Dungeon
 		redCollected = 0;
 		greenCollected = 0;
 		blueCollected = 0;
-		
-		mobSpawnWait = 1300;
+
+		mobSpawnWait = 14;
+		pixelSpawnWait = 25;
 		
 		player = new Player(4, 4);
 		
@@ -102,8 +107,6 @@ public class Dungeon
 			}
 		}
 	}
-	
-	Random random = new Random();
 	
 	public void update()
 	{
@@ -140,31 +143,35 @@ public class Dungeon
 			
 			if(redCollected > 5 || greenCollected > 5 || blueCollected > 5)
 			{
-				mobSpawnWait = 900;
+				mobSpawnWait = 9;
 			}
 			else if(redCollected > 9 || greenCollected > 9 || blueCollected > 9)
 			{
-				mobSpawnWait = 775;
+				mobSpawnWait = 8;
 			}
 			
-			if(random.nextInt(mobSpawnWait) == 1)
+			int chance = (int) (mobSpawnWait * (DisplayManager.getFPS() / 10)) + 1;
+
+			if(random.nextInt(chance) == 1)
 			{
 				int gx = random.nextInt(16);
 				int gy = random.nextInt(10);
-
-				while(gx == player.gridLocation.x || gx == player.gridLocation.x - 1 || gx == player.gridLocation.x + 1)
+				
+				while(gx >= player.gridLocation.x - 1 && gx <= player.gridLocation.x + 1 || (gx <= 0 || gx >= 15))
 				{
 					gx = random.nextInt(16);
 				}
-				while(gy == player.gridLocation.y || gy == player.gridLocation.y - 1 || gy == player.gridLocation.y + 1)
+				while(gy >= player.gridLocation.y - 1 && gy <= player.gridLocation.y + 1 || (gy <= 0 || gy >= 9))
 				{
 					gy = random.nextInt(10);
 				}
 				
-				spawnEntity(new EntityCommoner(random.nextInt(16), random.nextInt(10), 0, 0));
+				spawnEntity(new EntityCommoner(gx, gy, 0, 0));
 			}
 			
-			if(random.nextInt(1300) == 1 && coloredPixelsOut < maxColoredPixelsOut && !(redCollected >= coloredPixelsToCollect && greenCollected >= coloredPixelsToCollect && blueCollected >= coloredPixelsToCollect))
+			chance = (int) (pixelSpawnWait * (DisplayManager.getFPS() / 10)) + 1;
+			
+			if(random.nextInt(chance) == 1 && coloredPixelsOut < maxColoredPixelsOut && !(redCollected >= coloredPixelsToCollect && greenCollected >= coloredPixelsToCollect && blueCollected >= coloredPixelsToCollect))
 			{
 				int x = random.nextInt(13) + 1;
 				int y = random.nextInt(7) + 1;
